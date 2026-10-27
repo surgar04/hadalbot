@@ -1,0 +1,230 @@
+{
+  "kind": "static-import-audit",
+  "limitations": "仅扫描非资源目录中的静态字面量import；不证明业务、权限、npm依赖、动态导入、存储和定时任务已兼容。",
+  "plugins": [
+    {
+      "id": "ai-dialog",
+      "unsupported_modules": [
+        "@/database/client.js",
+        "@/database/document-store.js",
+        "@/services/render/render-send-cache.js",
+        "@/utils/timezone.js",
+        "@/utils/wechat-text.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 14
+    },
+    {
+      "id": "bilibili-parser",
+      "unsupported_modules": [
+        "@/app.config.js",
+        "@/services/config-file.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 6
+    },
+    {
+      "id": "example",
+      "unsupported_modules": [],
+      "skipped_sources": 0,
+      "source_files": 1
+    },
+    {
+      "id": "genshin-guide",
+      "unsupported_modules": [
+        "@/database/document-store.js",
+        "@/plugins/mihoyo-bind/paths.js",
+        "@/services/character-alias-commands.js",
+        "@/services/character-aliases.js",
+        "@/services/config-file.js",
+        "@/services/render/render-image-delivery.js",
+        "@/services/render/render-send-cache.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 8
+    },
+    {
+      "id": "github",
+      "unsupported_modules": [
+        "@/database/document-store.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 9
+    },
+    {
+      "id": "group-member-leave",
+      "unsupported_modules": [
+        "@/runtime/debug-mode.js",
+        "@/services/config-file.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 4
+    },
+    {
+      "id": "group-sync",
+      "unsupported_modules": [
+        "@/services/config-file.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 1
+    },
+    {
+      "id": "keyword-reply",
+      "unsupported_modules": [
+        "@/database/document-store.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 2
+    },
+    {
+      "id": "lumi-passport",
+      "unsupported_modules": [
+        "@/config/index.js",
+        "@/database/client.js",
+        "@/utils/binding-notice.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 12
+    },
+    {
+      "id": "meme-generator",
+      "unsupported_modules": [
+        "@/database/client.js",
+        "@/database/redis.js",
+        "@/services/config-file.js",
+        "@/services/render/render-image-delivery.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 3
+    },
+    {
+      "id": "mention-history",
+      "unsupported_modules": [
+        "@/database/client.js",
+        "@/services/config-file.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 3
+    },
+    {
+      "id": "mihoyo-bind",
+      "unsupported_modules": [
+        "@/app.config.js",
+        "@/config/index.js",
+        "@/database/client.js",
+        "@/database/document-store.js",
+        "@/database/redis.js",
+        "@/services/account-encryption.js",
+        "@/services/character-alias-commands.js",
+        "@/services/character-aliases.js",
+        "@/services/config-file.js",
+        "@/services/render/render-image-delivery.js",
+        "@/utils/binding-notice.js",
+        "@/utils/wechat-text.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 65
+    },
+    {
+      "id": "minecraft",
+      "unsupported_modules": [
+        "@/database/document-store.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 2
+    },
+    {
+      "id": "permission-admin",
+      "unsupported_modules": [
+        "@/services/permission-service.js",
+        "@/utils/permission-target.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 1
+    },
+    {
+      "id": "pokemmo-guild",
+      "unsupported_modules": [
+        "@/app.config.js",
+        "@/database/document-store.js",
+        "@/services/group-policy.js",
+        "@/services/render/render-image-delivery.js",
+        "@/utils/error-details.js",
+        "@/utils/permission-guard.js",
+        "@/utils/permission-target.js",
+        "@/utils/wechat-text.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 18
+    },
+    {
+      "id": "pokemon-wiki",
+      "unsupported_modules": [
+        "@/services/render/render-image-delivery.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 12
+    },
+    {
+      "id": "proxy-inbox",
+      "unsupported_modules": [
+        "@/database/client.js",
+        "@/database/document-store.js",
+        "@/services/config-file.js",
+        "@/utils/wechat-text.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 3
+    },
+    {
+      "id": "qq-music",
+      "unsupported_modules": [
+        "@/app.config.js",
+        "@/database/document-store.js",
+        "@/services/config-file.js",
+        "@/utils/binding-notice.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 11
+    },
+    {
+      "id": "skland-bind",
+      "unsupported_modules": [
+        "@/utils/binding-notice.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 4
+    },
+    {
+      "id": "skland-games",
+      "unsupported_modules": [
+        "@/database/document-store.js",
+        "@/services/render/render-image-delivery.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 14
+    },
+    {
+      "id": "turtle-soup",
+      "unsupported_modules": [
+        "@/database/document-store.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 6
+    },
+    {
+      "id": "wuwa-global",
+      "unsupported_modules": [
+        "@/database/client.js",
+        "@/database/document-store.js",
+        "@/services/config-file.js",
+        "@/services/python-plugin-host.js",
+        "@/services/render/puppeteer-renderer.js",
+        "@/utils/binding-notice.js",
+        "@/utils/wechat-text.js"
+      ],
+      "skipped_sources": 0,
+      "source_files": 23
+    }
+  ]
+}

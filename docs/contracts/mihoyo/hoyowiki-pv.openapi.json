@@ -1,0 +1,136 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HoYoWiki PV API",
+    "version": "1.0.0",
+    "description": "HoYoWiki 绝区零页面 PV 接口。"
+  },
+  "servers": [
+    {
+      "url": "https://sg-act-public-api.hoyolab.com",
+      "description": "HoYoWiki PV API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "HoYoWiki PV API"
+    }
+  ],
+  "paths": {
+    "/hoyowiki/zzz/wapi/entry_page/pv": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "记录页面 PV",
+        "operationId": "increaseHoyowikiZzzPv",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "entry_page_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "entry_page_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/004-邦布与HoYoWiki.md"
+  ],
+  "x-endpoint-count": 1
+}

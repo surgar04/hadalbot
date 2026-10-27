@@ -1,0 +1,24 @@
+{
+  "id": "example",
+  "name": "示例插件",
+  "version": "1.0.0",
+  "description": "演示 LumiBot 插件生命周期与消息响应",
+  "features": [
+    "插件 init 回调示例",
+    "私聊/群聊 ping 命令响应"
+  ],
+  "commands": [
+    {
+      "pattern": "ping",
+      "description": "回复 pong",
+      "scope": "all"
+    }
+  ],
+  "configSchema": {
+    "enabled": {
+      "type": "boolean",
+      "label": "启用插件",
+      "default": true
+    }
+  }
+}

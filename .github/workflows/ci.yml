@@ -1,0 +1,61 @@
+name: Go CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: go run ./cmd/devtools check
+      - run: npm exec --yes --package=typescript@5.9.3 -- tsc --project sdks/typescript/tsconfig.json --noEmit
+      - if: runner.os == 'Linux'
+        run: go test -race -count=1 ./...
+      - run: go run ./cmd/devtools build
+      - shell: bash
+        run: |
+          go mod tidy
+          git diff --exit-code -- go.mod go.sum
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go run ./cmd/devtools lint
+      - run: go run ./cmd/devtools vuln
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: hadalbot_go_test
+          POSTGRES_USER: hadalbot_go
+          POSTGRES_PASSWORD: test_only
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U hadalbot_go -d hadalbot_go_test" --health-interval 5s --health-timeout 3s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      HADALBOT_TEST_POSTGRES_DSN: postgres://hadalbot_go:test_only@127.0.0.1:5432/hadalbot_go_test?sslmode=disable
+      HADALBOT_TEST_REDIS_URL: redis://127.0.0.1:6379/15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go test -race -count=1 -v ./internal/storage/...

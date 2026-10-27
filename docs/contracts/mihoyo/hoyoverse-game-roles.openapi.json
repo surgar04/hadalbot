@@ -1,0 +1,127 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HoYoverse 账号游戏角色 API",
+    "version": "1.0.0",
+    "description": "将 HoYoLAB 登录态映射为游戏 UID、区服和 game_biz，后续游戏记录接口应使用这里返回的角色。"
+  },
+  "servers": [
+    {
+      "url": "https://api-os-takumi.hoyoverse.com",
+      "description": "HoYoverse 账号游戏角色 API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "HoYoverse 账号游戏角色 API"
+    }
+  ],
+  "paths": {
+    "/binding/api/getUserGameRolesByCookie": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "通过 Cookie 获取账号绑定的游戏角色",
+        "operationId": "getUserGameRolesByCookie",
+        "parameters": [
+          {
+            "name": "game_biz",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/010-国际服SToken与SnapHutao研究.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/010-国际服SToken与SnapHutao研究.md"
+  ],
+  "x-endpoint-count": 1
+}

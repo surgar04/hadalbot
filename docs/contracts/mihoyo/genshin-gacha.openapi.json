@@ -1,0 +1,250 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "原神国际服抽卡记录 API",
+    "version": "1.0.0",
+    "description": "原神国际服抽卡记录。authkey 属于敏感临时凭据，只能存入 Apifox 本地环境变量。"
+  },
+  "servers": [
+    {
+      "url": "https://public-operation-hk4e-sg.hoyoverse.com",
+      "description": "原神国际服抽卡记录 API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "原神国际服抽卡记录 API"
+    }
+  ],
+  "paths": {
+    "/gacha_info/api/getGachaLog": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "按 authkey 分页获取抽卡记录",
+        "operationId": "getGenshinGachaLog",
+        "parameters": [
+          {
+            "name": "authkey_ver",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_AUTHKEY}}"
+            }
+          },
+          {
+            "name": "sign_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "auth_appid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "init_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gacha_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "game_version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "plat_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "authkey",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_AUTHKEY}}"
+            }
+          },
+          {
+            "name": "gacha_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/010-国际服SToken与SnapHutao研究.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/010-国际服SToken与SnapHutao研究.md"
+  ],
+  "x-endpoint-count": 1
+}

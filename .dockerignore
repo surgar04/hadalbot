@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+bin
+tmp
+.tools
+coverage*
+configs/local*
+docs/reference
+*.log

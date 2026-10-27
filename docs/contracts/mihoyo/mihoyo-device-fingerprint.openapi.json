@@ -1,0 +1,222 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HoYoverse Device Fingerprint API",
+    "version": "1.0.0",
+    "description": "设备指纹字段定义和计算接口。ext_fields 必须来自本地真实浏览器环境。"
+  },
+  "servers": [
+    {
+      "url": "https://sg-public-data-api.hoyoverse.com",
+      "description": "HoYoverse Device Fingerprint API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "HoYoverse Device Fingerprint API"
+    }
+  ],
+  "paths": {
+    "/device-fp/api/getExtList": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取设备指纹字段定义",
+        "operationId": "getDeviceFingerprintExtList",
+        "parameters": [
+          {
+            "name": "app_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/device-fp/api/getFp": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "计算/登记设备指纹",
+        "operationId": "getDeviceFingerprint",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "device_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_HOYOLAB_DEVICE_ID}}",
+                    "x-sensitive": true
+                  },
+                  "seed_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_HOYOLAB_SEED_ID}}",
+                    "x-sensitive": true
+                  },
+                  "seed_time": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "type": "string"
+                  },
+                  "device_fp": {
+                    "type": "string",
+                    "example": "{{LOCAL_HOYOLAB_DEVICE_FP}}",
+                    "x-sensitive": true
+                  },
+                  "app_name": {
+                    "type": "string"
+                  },
+                  "ext_fields": {
+                    "type": "string",
+                    "example": "{{LOCAL_HOYOLAB_EXT_FIELDS}}",
+                    "x-sensitive": true
+                  }
+                },
+                "required": [
+                  "device_id",
+                  "seed_id",
+                  "seed_time",
+                  "platform",
+                  "device_fp",
+                  "app_name",
+                  "ext_fields"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/001-认证登录与会话.md"
+  ],
+  "x-endpoint-count": 2
+}

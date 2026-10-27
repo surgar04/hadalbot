@@ -1,0 +1,63 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：genshin-commands.ts",
+    "title": "源码补充：gacha-auth",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/binding/api/genAuthKey": {
+      "post": {
+        "operationId": "genAuthKey",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "auth_appid": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "game_biz": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "game_uid": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "region": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "auth_appid",
+                  "game_biz",
+                  "game_uid",
+                  "region"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "为明确选择的角色生成祈愿授权密钥",
+        "x-candidate-unverified": false,
+        "x-signature": "legacy-ds2"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api-os-takumi.hoyoverse.com"
+    }
+  ]
+}

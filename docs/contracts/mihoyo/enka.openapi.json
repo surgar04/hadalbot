@@ -1,0 +1,87 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：enka-showcase.ts",
+    "title": "源码补充：enka",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/api/hsr/uid/{uid}": {
+      "get": {
+        "operationId": "getStarRailShowcase",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "path",
+            "name": "uid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "读取Enka公开展柜，不发送HoYoLAB凭证",
+        "x-candidate-unverified": false,
+        "x-raw-response": true
+      }
+    },
+    "/api/uid/{uid}": {
+      "get": {
+        "operationId": "getGenshinShowcase",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "path",
+            "name": "uid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "读取Enka公开展柜，不发送HoYoLAB凭证",
+        "x-candidate-unverified": false,
+        "x-raw-response": true
+      }
+    },
+    "/api/zzz/uid/{uid}": {
+      "get": {
+        "operationId": "getZzzShowcase",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "path",
+            "name": "uid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "读取Enka公开展柜，不发送HoYoLAB凭证",
+        "x-candidate-unverified": false,
+        "x-raw-response": true
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://enka.network"
+    }
+  ]
+}

@@ -1,0 +1,1557 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "原神游戏记录 API",
+    "version": "1.0.0",
+    "description": "原神总览、角色、战斗玩法、实时便笺、活动日历、七圣召唤和候选写接口。候选接口明确标记为未验证。"
+  },
+  "servers": [
+    {
+      "url": "https://sg-act-public-api.hoyolab.com",
+      "description": "原神游戏记录 API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "原神游戏记录 API"
+    }
+  ],
+  "paths": {
+    "/event/game_record/genshin/api/index": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "总览、探索与尘歌壶",
+        "operationId": "getGenshinIndex",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "avatar_list_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/achievement": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "成就分类与总数",
+        "operationId": "getGenshinAchievements",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "server": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_REGION}}",
+                    "x-sensitive": true
+                  },
+                  "role_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_UID}}",
+                    "x-sensitive": true
+                  }
+                },
+                "required": [
+                  "server",
+                  "role_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/game_record/genshin/api/character/list": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "我的角色",
+        "operationId": "getGenshinCharacterList",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "server": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_REGION}}",
+                    "x-sensitive": true
+                  },
+                  "role_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_UID}}",
+                    "x-sensitive": true
+                  }
+                },
+                "required": [
+                  "server",
+                  "role_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/game_record/genshin/api/avatarBasicInfo": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "批量角色公共资料",
+        "operationId": "getGenshinAvatarBasicInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "character_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "character_ids"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/game_record/genshin/api/character/detail": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "角色面板/批量详情",
+        "operationId": "getGenshinCharacterDetails",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "server": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_REGION}}",
+                    "x-sensitive": true
+                  },
+                  "role_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_UID}}",
+                    "x-sensitive": true
+                  },
+                  "character_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "server",
+                  "role_id",
+                  "character_ids"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/game_record/genshin/api/char_master": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "角色培养进度",
+        "operationId": "getGenshinCharacterMastery",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "nickname",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/char_master/red_dot/cancel": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "清除培养红点",
+        "operationId": "cancelGenshinMasteryRedDot",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "server": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_REGION}}",
+                    "x-sensitive": true
+                  },
+                  "role_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_UID}}",
+                    "x-sensitive": true
+                  },
+                  "avatar_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "server",
+                  "role_id",
+                  "avatar_ids"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/game_record/genshin/api/external_content": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "Wiki/攻略/计算器链接",
+        "operationId": "getGenshinExternalContent",
+        "parameters": [
+          {
+            "name": "item_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "item_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/act_calendar": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "活动与祈愿日历",
+        "operationId": "getGenshinActivityCalendar",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "server": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_REGION}}",
+                    "x-sensitive": true
+                  },
+                  "role_id": {
+                    "type": "string",
+                    "example": "{{LOCAL_GENSHIN_UID}}",
+                    "x-sensitive": true
+                  }
+                },
+                "required": [
+                  "server",
+                  "role_id"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/game_record/genshin/api/hard_challenge": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "幽境危战",
+        "operationId": "getGenshinHardChallenge",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "need_detail",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/hard_challenge/popularity": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "幽境危战热门角色",
+        "operationId": "getGenshinHardChallengePopularity",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/role_combat": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "幻想真境剧诗",
+        "operationId": "getGenshinRoleCombat",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "nickname",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "need_detail",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/spiralAbyss": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "深境螺旋",
+        "operationId": "getGenshinSpiralAbyss",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/gcg/basicInfo": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "七圣召唤摘要",
+        "operationId": "getGenshinGcgBasicInfo",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/tool_oversea": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "页面工具入口",
+        "operationId": "getGenshinTools",
+        "parameters": [
+          {
+            "name": "view_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/dailyNote": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "实时便笺",
+        "operationId": "getGenshinDailyNote",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/activities": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "历史活动记录",
+        "operationId": "getGenshinActivities",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/roleBasicInfo": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "角色基础信息",
+        "operationId": "getGenshinRoleBasicInfo",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/gcg/cardBackList": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "七圣召唤牌背",
+        "operationId": "getGenshinGcgCardBackList",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/gcg/cardList": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "七圣召唤卡牌分页",
+        "operationId": "getGenshinGcgCardList",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/gcg/challenge/schedule": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "七圣召唤挑战赛程",
+        "operationId": "getGenshinGcgChallengeSchedule",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record/genshin/api/gcg/challenge/deck": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "七圣召唤挑战牌组",
+        "operationId": "getGenshinGcgChallengeDeck",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_GENSHIN_REGION}}"
+            }
+          },
+          {
+            "name": "schedule_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "deck_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/genshin/api/character/top": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "角色置顶（候选）",
+        "operationId": "setGenshinCharacterTop",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/genshin/api/character/set_recommend_prop": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "设置推荐属性（候选）",
+        "operationId": "setGenshinRecommendProperty",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/genshin/api/gcg/setPrivacySettings": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "设置七圣召唤隐私（候选）",
+        "operationId": "setGenshinGcgPrivacy",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/005-原神.md",
+          "API/米哈游/006-DS签名与海外Web认证.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/005-原神.md",
+    "API/米哈游/006-DS签名与海外Web认证.md"
+  ],
+  "x-endpoint-count": 25
+}

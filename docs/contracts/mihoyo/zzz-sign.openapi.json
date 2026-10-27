@@ -1,0 +1,57 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：hoyolab-rewards.ts",
+    "title": "源码补充：zzz-sign",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/event/luna/zzz/os/sign": {
+      "post": {
+        "operationId": "signIn",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "act_id": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "lang": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "uid": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "act_id"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "显式执行zzz-sign，即使GET也不自动重试",
+        "x-candidate-unverified": false,
+        "x-idempotent": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sg-act-public-api.hoyolab.com"
+    }
+  ]
+}

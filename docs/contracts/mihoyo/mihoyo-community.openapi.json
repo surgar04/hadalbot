@@ -1,0 +1,468 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HoYoLAB Community and Account API",
+    "version": "1.0.0",
+    "description": "HoYoLAB 社区用户资料、游戏角色卡、帖子、徽章、资产和通知接口。"
+  },
+  "servers": [
+    {
+      "url": "https://bbs-api-os.hoyolab.com",
+      "description": "HoYoLAB Community and Account API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "HoYoLAB Community and Account API"
+    }
+  ],
+  "paths": {
+    "/community/painter/wapi/user/full": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取当前完整用户资料",
+        "operationId": "getFullUserProfile",
+        "parameters": [
+          {
+            "name": "t",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      },
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "按模块获取用户资料",
+        "operationId": "postFullUserProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "modules": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "scene": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "modules",
+                  "scene"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/community/misc/wapi/account/user_brief_info": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取登录账号简要信息",
+        "operationId": "getAccountBriefInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/game_record/card/wapi/getGameRecordCard": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取游戏角色卡",
+        "operationId": "getGameRecordCard",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_HOYOLAB_UID}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/community/post/wapi/userPost": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取个人帖子",
+        "operationId": "getUserPosts",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_HOYOLAB_UID}}"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/community/user/wapi/badge/list": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取徽章",
+        "operationId": "getUserBadges",
+        "parameters": [
+          {
+            "name": "target_uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_HOYOLAB_UID}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/community/user/wapi/asset/list": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取账号资产",
+        "operationId": "getUserAssets",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/community/notification/wapi/getUserUnreadCount": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取未读数",
+        "operationId": "getUserUnreadCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/community/creator/wapi/user/card": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "获取创作者统计",
+        "operationId": "getCreatorCard",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/002-通用账号与主页.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/002-通用账号与主页.md"
+  ],
+  "x-endpoint-count": 9
+}

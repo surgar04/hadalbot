@@ -1,0 +1,84 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：hoyolab-rewards.ts",
+    "title": "源码补充：genshin-redeem",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/common/apicdkey/api/webExchangeCdkey": {
+      "get": {
+        "operationId": "redeemCode",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "uid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "region",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "cdkey",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "game_biz",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "lang",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "sLangKey",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "显式执行genshin-redeem，即使GET也不自动重试",
+        "x-candidate-unverified": false,
+        "x-idempotent": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sg-hk4e-api.hoyolab.com"
+    }
+  ]
+}

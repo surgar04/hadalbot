@@ -1,0 +1,40 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：hoyolab-client.ts",
+    "title": "源码补充：passport-extra",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/account/ma-passport/token/verifyCookieToken": {
+      "post": {
+        "operationId": "verifyCookieToken",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {},
+                "required": null,
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "验证已有CookieToken会话",
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://passport-api-eu.hoyolab.com"
+    }
+  ]
+}

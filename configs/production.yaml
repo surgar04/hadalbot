@@ -1,0 +1,11 @@
+# 生产环境必须通过环境变量提供至少32字符的 HADALBOT_HTTP_API_KEY。
+environment: production
+http:
+  address: 0.0.0.0:18878
+log:
+  level: info
+  format: json
+database:
+  enabled: false
+redis:
+  enabled: false

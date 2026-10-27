@@ -1,0 +1,15 @@
+# 独立示例，显式通过-config传入才生效；默认不会加载此文件。
+# 真正收消息时还需按upstreams.md启用千寻及HTTP回调/WS，并用环境变量注入密钥。
+plugins:
+ enabled: true
+ directory: examples/plugins
+ typescript: true
+ node: node
+ max_ts_workers: 4
+ ts_heap_mb: 128
+ enabled_ids: [example-go, echo-ts]
+ grants:
+  example-go: [qx.sendText]
+  echo-ts: [qx.sendText]
+ config:
+  echo-ts: {}

@@ -1,0 +1,394 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "HoYoLAB Passport Web API",
+    "version": "1.0.0",
+    "description": "HoYoLAB Web 登录、LToken 验证与会话接口。账号和密码必须先使用生产 RSA 公钥加密。"
+  },
+  "servers": [
+    {
+      "url": "https://passport-api-eu.hoyolab.com",
+      "description": "HoYoLAB Passport Web API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "HoYoLAB Passport Web API"
+    }
+  ],
+  "paths": {
+    "/account/ma-passport/api/webLoginByPassword": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "RSA 密码登录",
+        "operationId": "webLoginByPassword",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string",
+                    "example": "{{LOCAL_HOYOLAB_ACCOUNT_RSA}}",
+                    "x-sensitive": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "{{LOCAL_HOYOLAB_PASSWORD_RSA}}",
+                    "x-sensitive": true
+                  },
+                  "token_type": {
+                    "type": "integer",
+                    "example": 6
+                  }
+                },
+                "required": [
+                  "account",
+                  "password",
+                  "token_type"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/ma-passport/token/verifyLToken": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "验证 LToken",
+        "operationId": "verifyLToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/ma-passport/token/crossLoginStart": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "跨域登录开始（代码发现）",
+        "operationId": "crossLoginStart",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/ma-passport/token/crossLogout": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "跨域退出（代码发现）",
+        "operationId": "crossLogout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/ma-passport/api/logout": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "账号退出（代码发现）",
+        "operationId": "passportLogout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/ma-passport/api/webLoginByEmailCaptcha": {
+      "post": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "邮箱验证码登录（代码发现）",
+        "operationId": "webLoginByEmailCaptcha",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/001-认证登录与会话.md"
+        ],
+        "x-candidate-unverified": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account": {
+                    "type": "string"
+                  },
+                  "captcha": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "account",
+                  "captcha"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/001-认证登录与会话.md"
+  ],
+  "x-endpoint-count": 6
+}

@@ -1,0 +1,15 @@
+/.env
+/.env.*
+!/.env.example
+/configs/local*.yaml
+/bin/
+/.tools/
+/tmp/
+/coverage*
+*.test
+*.exe
+*.out
+*.log
+/.idea/
+/.vscode/*.local.json
+/.DS_Store

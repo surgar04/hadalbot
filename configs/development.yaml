@@ -1,0 +1,60 @@
+# 配置文件不存放真实密钥，敏感值通过 HADALBOT_* 环境变量注入。
+environment: development
+http:
+  address: 127.0.0.1:18878
+  api_key: ""
+  read_timeout: 15s
+  write_timeout: 30s
+  idle_timeout: 60s
+  shutdown_timeout: 15s
+  max_body_bytes: 2097152
+log:
+  level: info
+  format: json
+database:
+  enabled: false
+  dsn: ""
+  max_connections: 8
+  min_connections: 0
+  max_connection_lifetime: 30m
+redis:
+  enabled: false
+  url: redis://127.0.0.1:16379/0
+  pool_size: 4
+
+# JSON调用单次另限制8MiB；文件下载使用网关32MiB上限并流式写出。
+gateway:
+  timeout: 30s
+  max_response_bytes: 33554432
+  max_retries: 1
+qianxun:
+  enabled: false
+  mode: framework # direct模式需显式把base_url设为对应微信进程的端口。
+  base_url: http://127.0.0.1:7777
+  concurrency: 4
+  queue_size: 64
+  min_interval: 20ms
+  callback_enabled: false
+  callback_max_body_bytes: 524288
+  event_shards: 4
+  event_queue_per_shard: 16
+  websocket_enabled: false
+  websocket_url: ""
+mihoyo:
+  enabled: false
+  concurrency: 8
+  queue_size: 128
+  min_interval: 100ms
+
+# 新插件系统默认关闭；存在于目录中不代表自动授权执行。
+plugins:
+  enabled: false
+  directory: plugins
+  typescript: false
+  node: node # TS兼容需要Node24及以上；纯Go模式无此依赖。
+  ts_heap_mb: 128
+  max_ts_workers: 4
+  max_plugins: 128
+  enabled_ids: []
+  grants: {}
+  config: {}

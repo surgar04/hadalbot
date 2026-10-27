@@ -1,0 +1,82 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：hoyolab-rewards.ts",
+    "title": "源码补充：zzz-redeem",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/common/apicdkey/api/webExchangeCdkeyRisk": {
+      "post": {
+        "operationId": "redeemCode",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "cdkey": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "device_uuid": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "game_biz": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "lang": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "platform": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "region": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "t": {
+                    "description": "客户端毫秒时间戳",
+                    "type": "integer"
+                  },
+                  "uid": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "game_biz",
+                  "uid",
+                  "region",
+                  "cdkey",
+                  "lang",
+                  "platform",
+                  "device_uuid"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "显式执行zzz-redeem，即使GET也不自动重试",
+        "x-candidate-unverified": false,
+        "x-idempotent": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://public-operation-nap.hoyoverse.com"
+    }
+  ]
+}

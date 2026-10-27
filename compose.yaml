@@ -1,0 +1,58 @@
+name: hadalbot-go
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: hadalbot_go
+      POSTGRES_USER: hadalbot_go
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?请先在本工程.env中设置独立数据库密码}
+    ports: ["127.0.0.1:15432:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hadalbot_go -d hadalbot_go"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "64mb", "--maxmemory-policy", "noeviction"]
+    ports: ["127.0.0.1:16379:6379"]
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  app:
+    profiles: ["app"]
+    build: .
+    environment:
+      HADALBOT_HTTP_API_KEY: ${HADALBOT_HTTP_API_KEY:-}
+      HADALBOT_DATABASE_ENABLED: "true"
+      # 推荐显式提供经过URL编码的DSN，防止密码中的特殊字符破坏连接串。
+      HADALBOT_DATABASE_DSN: ${HADALBOT_DATABASE_DSN:-}
+      HADALBOT_REDIS_ENABLED: "true"
+      HADALBOT_REDIS_URL: redis://redis:6379/0
+      HADALBOT_QIANXUN_ENABLED: ${HADALBOT_QIANXUN_ENABLED:-false}
+      HADALBOT_QIANXUN_MODE: ${HADALBOT_QIANXUN_MODE:-framework}
+      # 容器的127.0.0.1指容器自身；接宿主千寻时显式配置可达地址。
+      HADALBOT_QIANXUN_BASE_URL: ${HADALBOT_QIANXUN_BASE_URL:-http://127.0.0.1:7777}
+      HADALBOT_QIANXUN_SAFE_KEY: ${HADALBOT_QIANXUN_SAFE_KEY:-}
+      HADALBOT_QIANXUN_WXID: ${HADALBOT_QIANXUN_WXID:-}
+      HADALBOT_QIANXUN_CALLBACK_ENABLED: ${HADALBOT_QIANXUN_CALLBACK_ENABLED:-false}
+      HADALBOT_QIANXUN_CALLBACK_TOKEN: ${HADALBOT_QIANXUN_CALLBACK_TOKEN:-}
+      HADALBOT_QIANXUN_WEBSOCKET_ENABLED: ${HADALBOT_QIANXUN_WEBSOCKET_ENABLED:-false}
+      HADALBOT_QIANXUN_WEBSOCKET_URL: ${HADALBOT_QIANXUN_WEBSOCKET_URL:-}
+      HADALBOT_MIHOYO_ENABLED: ${HADALBOT_MIHOYO_ENABLED:-false}
+    ports: ["127.0.0.1:18878:18878"]
+    depends_on:
+      postgres: {condition: service_healthy}
+      redis: {condition: service_healthy}
+    read_only: true
+    tmpfs: ["/tmp:size=32m"]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    stop_grace_period: 20s
+volumes:
+  postgres_data:
+  redis_data:

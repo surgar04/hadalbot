@@ -1,0 +1,1477 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：official-game-record.ts",
+    "title": "源码补充：star-rail-web",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/event/game_record/hkrpg/api/achievement_info": {
+      "get": {
+        "operationId": "getStarRailAppAchievementInfo",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "成就详情",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/activity": {
+      "get": {
+        "operationId": "getStarRailAppActivity",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "活动记录",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/avatar/info": {
+      "get": {
+        "operationId": "getStarRailAppAvatarInfo",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_wiki",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "我的角色与面板详情",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/challenge": {
+      "get": {
+        "operationId": "getStarRailAppChallenge",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "schedule_type",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_all",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "混沌回忆",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/challenge_boss": {
+      "get": {
+        "operationId": "getStarRailAppChallengeBoss",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "schedule_type",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_all",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "末日幻影",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/challenge_brief": {
+      "get": {
+        "operationId": "getStarRailAppChallengeBrief",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "逐光捡金摘要",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/challenge_peak": {
+      "get": {
+        "operationId": "getStarRailAppChallengePeak",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "schedule_type",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "异相仲裁/巅峰挑战",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/challenge_story": {
+      "get": {
+        "operationId": "getStarRailAppChallengeStory",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "schedule_type",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_all",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "虚构叙事",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/chest_info": {
+      "get": {
+        "operationId": "getStarRailAppChestInfo",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "战利品/宝箱",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/get_act_calender": {
+      "get": {
+        "operationId": "getStarRailAppActivityCalendar",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "活动与跃迁日历",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/grid_fight": {
+      "get": {
+        "operationId": "getStarRailAppGridFight",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "货币战争",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/index": {
+      "get": {
+        "operationId": "getStarRailAppIndex",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "总览/活跃天数/角色/成就/宝箱",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/museum/basic": {
+      "get": {
+        "operationId": "getStarRailAppMuseumBasic",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "冬城博物珍奇簿摘要",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/museum/detail": {
+      "get": {
+        "operationId": "getStarRailAppMuseumDetail",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "冬城博物珍奇簿详情",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/note": {
+      "get": {
+        "operationId": "getStarRailAppNote",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "实时便笺",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/periodic_act": {
+      "get": {
+        "operationId": "getStarRailAppPeriodicActivity",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "周期玩法摘要",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/resident": {
+      "get": {
+        "operationId": "getStarRailAppResident",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "常驻记录",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/rogue": {
+      "get": {
+        "operationId": "getStarRailAppRogue",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "schedule_type",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_detail",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "模拟宇宙",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/rogue_locust": {
+      "get": {
+        "operationId": "getStarRailAppRogueLocust",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_detail",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "寰宇蝗灾",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/rogue_magic": {
+      "get": {
+        "operationId": "getStarRailAppRogueMagic",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "不可知域",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/rogue_nous": {
+      "get": {
+        "operationId": "getStarRailAppRogueNous",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_detail",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "黄金与机械",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/rogue_tourn": {
+      "get": {
+        "operationId": "getStarRailAppRogueTourn",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "need_detail",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "差分宇宙",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/role/basicInfo": {
+      "get": {
+        "operationId": "getStarRailAppRoleBasicInfo",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role_id",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_UID}}",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "server",
+            "required": true,
+            "schema": {
+              "default": "{{LOCAL_STARRAIL_REGION}}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "角色基础资料",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    },
+    "/event/game_record/hkrpg/api/tool": {
+      "get": {
+        "operationId": "getStarRailAppTool",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "view_type",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            },
+            "description": "HoYoLAB 响应"
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "summary": "工具入口",
+        "tags": [
+          "HoYoLAB"
+        ],
+        "x-candidate-unverified": false,
+        "x-source-documents": [
+          "API/米哈游/006-DS签名与海外Web认证.md",
+          "API/米哈游/007-星穹铁道.md",
+          "API/米哈游/009-星铁APP-DS与Enka降级.md",
+          "API/米哈游/011-星铁海外DS1与官方数据接入.md"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sg-act-public-api.hoyolab.com"
+    }
+  ]
+}

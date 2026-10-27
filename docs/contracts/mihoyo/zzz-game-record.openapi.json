@@ -1,0 +1,1225 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "绝区零游戏记录 API",
+    "version": "1.0.0",
+    "description": "绝区零总览、代理人、便笺、调频、战斗玩法、探索、邦布、月报及反馈日程接口。"
+  },
+  "servers": [
+    {
+      "url": "https://sg-act-public-api.hoyolab.com",
+      "description": "绝区零游戏记录 API 服务"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HoYoLAB",
+      "description": "绝区零游戏记录 API"
+    }
+  ],
+  "paths": {
+    "/event/game_record_zzz/api/zzz/index": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "战绩总览/活跃天数",
+        "operationId": "getZzzIndex",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/avatar/basic": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "我的代理人基础列表",
+        "operationId": "getZzzAvatarBasic",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/avatar/info": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "代理人面板/批量详情",
+        "operationId": "getZzzAvatarInfo",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "id_list[]",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "need_wiki",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/note": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "实时便笺",
+        "operationId": "getZzzNote",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/activity_calendar": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "活动日历",
+        "operationId": "getZzzActivityCalendar",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/gacha_calendar": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "调频日历",
+        "operationId": "getZzzGachaCalendar",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/cur_gacha_detail": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "当前调频摘要",
+        "operationId": "getZzzCurrentGacha",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/gacha_record": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "调频记录分页",
+        "operationId": "getZzzGachaRecord",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "gacha_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/hadal_info_v2": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "式舆防卫战",
+        "operationId": "getZzzHadalInfo",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "without_v2_detail",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/holo_boss_detail": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "危局强袭战",
+        "operationId": "getZzzHoloBoss",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/mem_detail": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "战斗玩法详情",
+        "operationId": "getZzzMemDetail",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/climbing_tower_detail": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "爬塔/拟真鏖战类",
+        "operationId": "getZzzClimbingTower",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/abyss_abstract": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "深渊摘要（旧）",
+        "operationId": "getZzzAbyssAbstract",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/abysss2_abstract": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "深渊摘要（S2）",
+        "operationId": "getZzzAbyssS2Abstract",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/void_front_battle_period_abstract_info": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "拟境湮灭战摘要",
+        "operationId": "getZzzVoidFrontAbstract",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "schedule_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/exploration_detail": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "区域收集",
+        "operationId": "getZzzExplorationDetail",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/game_record_zzz/api/zzz/buddy/info": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "账号持有邦布",
+        "operationId": "getZzzBuddyInfo",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "server",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/nap_ledger/month_info": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "绝区零月报",
+        "operationId": "getZzzMonthlyLedger",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/nap_feedback/user/get_cur_schedule": {
+      "get": {
+        "tags": [
+          "HoYoLAB"
+        ],
+        "summary": "反馈日程",
+        "operationId": "getZzzFeedbackSchedule",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_UID}}"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "{{LOCAL_ZZZ_REGION}}"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tool_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HoYoLAB 响应",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HoyolabResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数或签名无效"
+          },
+          "401": {
+            "description": "Cookie/Token 登录态失效"
+          },
+          "403": {
+            "description": "WAF 或风控拒绝"
+          }
+        },
+        "x-source-documents": [
+          "API/米哈游/003-绝区零.md",
+          "API/米哈游/004-邦布与HoYoWiki.md"
+        ],
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HoyolabResponse": {
+        "type": "object",
+        "required": [
+          "retcode",
+          "message"
+        ],
+        "properties": {
+          "retcode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "HoyolabCookie": {
+        "type": "apiKey",
+        "name": "Cookie",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_COOKIE}}"
+      },
+      "DsSignature": {
+        "type": "apiKey",
+        "name": "DS",
+        "in": "header",
+        "description": "本地按文档算法动态生成；不要提交真实 DS。"
+      },
+      "DeviceId": {
+        "type": "apiKey",
+        "name": "x-rpc-device_id",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_ID}}"
+      },
+      "DeviceFingerprint": {
+        "type": "apiKey",
+        "name": "x-rpc-device_fp",
+        "in": "header",
+        "description": "Apifox 本地变量 {{LOCAL_HOYOLAB_DEVICE_FP}}"
+      }
+    }
+  },
+  "security": [
+    {
+      "HoyolabCookie": [],
+      "DsSignature": [],
+      "DeviceId": [],
+      "DeviceFingerprint": []
+    }
+  ],
+  "x-source-documents": [
+    "API/米哈游/003-绝区零.md",
+    "API/米哈游/004-邦布与HoYoWiki.md"
+  ],
+  "x-endpoint-count": 19
+}

@@ -1,0 +1,205 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：genshin-commands.ts",
+    "title": "源码补充：star-rail-gacha-global",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/common/gacha_record/api/getGachaLog": {
+      "get": {
+        "operationId": "getGachaLog",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "authkey",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "authkey_ver",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "sign_type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "game_biz",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "gacha_type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "lang",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "end_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "按授权链接分页读取星铁跃迁记录",
+        "x-candidate-unverified": false
+      }
+    },
+    "/common/gacha_record/api/getLdGachaLog": {
+      "get": {
+        "operationId": "getLdGachaLog",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "authkey",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "authkey_ver",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "sign_type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "game_biz",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "gacha_type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "lang",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "end_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "按授权链接分页读取星铁跃迁记录",
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://public-operation-hkrpg-sg.hoyoverse.com"
+    }
+  ]
+}

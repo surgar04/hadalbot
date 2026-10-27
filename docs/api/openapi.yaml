@@ -1,0 +1,264 @@
+openapi: 3.0.3
+info:
+  title: HadalBot-Go Foundation API
+  version: 0.1.0
+  description: |
+    新 Go 工程基础接口。旧项目业务接口尚未迁移。
+    生产环境及非回环监听必须配置 API key；本地开发未配置 key 时允许访问受保护路由。
+servers:
+  - url: http://127.0.0.1:18878
+paths:
+  /healthz:
+    get:
+      operationId: getLiveness
+      summary: 进程存活状态
+      responses:
+        '200':
+          description: 服务存活
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /readyz:
+    get:
+      operationId: getReadiness
+      summary: 服务及已启用依赖是否就绪
+      responses:
+        '200':
+          description: 服务已就绪，关闭的可选依赖不阻断就绪状态
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '503':
+          description: 启动中、退出中或已启用依赖不可用
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /api/v1/system:
+    get:
+      operationId: getSystem
+      summary: 构建信息及已注册模块
+      security:
+        - APIKey: []
+        - Bearer: []
+      responses:
+        '200':
+          description: 当前 Go 基础工程状态
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [name, version, commit, built_at, stage, modules]
+                properties:
+                  name:
+                    type: string
+                  version:
+                    type: string
+                  commit:
+                    type: string
+                  built_at:
+                    type: string
+                    description: RFC3339构建时间；未注入时为unknown
+                  stage:
+                    type: string
+                    enum: [foundation]
+                  modules:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/upstreams:
+    get:
+      operationId: getUpstreamStatus
+      summary: 上游启用状态及有界资源使用情况
+      security:
+        - APIKey: []
+        - Bearer: []
+      responses:
+        '200':
+          description: 安全统计，不包含来源地址、账号凭证或消息正文
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [qianxun_enabled, mihoyo_enabled, qianxun_http_contracts, mihoyo_contracts]
+                properties:
+                  qianxun_enabled:
+                    type: boolean
+                  mihoyo_enabled:
+                    type: boolean
+                  qianxun_http_contracts:
+                    type: integer
+                  mihoyo_contracts:
+                    type: integer
+                  gateway:
+                    type: object
+                    additionalProperties: true
+                  events:
+                    type: object
+                    additionalProperties: true
+                  websocket:
+                    type: object
+                    additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/plugins:
+    get:
+      operationId: getPlugins
+      summary: 插件启用状态及安全资源统计
+      security:
+        - APIKey: []
+        - Bearer: []
+      responses:
+        '200':
+          description: 不包含插件配置、凭证、入口目录或异常正文
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  enabled:
+                    type: boolean
+                  plugins:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/plugins/{id}/enable:
+    post:
+      operationId: enablePlugin
+      summary: 启用已登记插件，不上传或加载任意路径
+      security:
+        - APIKey: []
+        - Bearer: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 已创建新实例并就绪
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: 拒绝Origin请求
+        '409':
+          description: 依赖、状态、资源或插件初始化不允许转换
+        '503':
+          description: 控制队列已满
+  /api/v1/plugins/{id}/disable:
+    post:
+      operationId: disablePlugin
+      summary: 排空并停用插件，存在就绪依赖者时拒绝
+      security:
+        - APIKey: []
+        - Bearer: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 已清理停止
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: 拒绝Origin请求
+        '409':
+          description: 仍有依赖者或未完成排空
+        '503':
+          description: 控制队列已满
+  /callbacks/qianxun:
+    post:
+      operationId: receiveQianxunEvent
+      summary: 显式开启后接收千寻事件，默认不挂载
+      security:
+        - CallbackToken: []
+      description: 独立回调token，支持X-QX-Callback-Token或URL中token参数；200只表示已接收或窗口内重复。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: 已接收入内存队列或判定为重复
+        '400':
+          description: 非法JSON或事件协议错误
+        '401':
+          description: 独立回调token错误或浏览器Origin请求
+        '403':
+          description: 账号范围不匹配
+        '413':
+          description: 消息超过字节预算
+        '503':
+          description: 无订阅者、解析并发或事件队列已满
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Prometheus指标
+      security:
+        - APIKey: []
+        - Bearer: []
+      responses:
+        '200':
+          description: Go运行时、进程和HTTP请求指标
+          content:
+            text/plain:
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    CallbackToken:
+      type: apiKey
+      in: header
+      name: X-QX-Callback-Token
+    APIKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Bearer:
+      type: http
+      scheme: bearer
+  schemas:
+    Status:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok, ready, unavailable]
+    Error:
+      type: object
+      required: [error, request_id]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+        request_id:
+          type: string
+  responses:
+    Unauthorized:
+      description: 缺少或无效的API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

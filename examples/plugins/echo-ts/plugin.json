@@ -1,0 +1,6 @@
+{
+ "id":"echo-ts","name":"TS兼容示例","version":"1.0.0","runtime":"typescript","apiVersion":1,
+ "entry":"index.ts","description":"演示旧Plugin钩子与ctx.sendText","features":["TS兼容"],
+ "capabilities":["qx.sendText"],"commands":[{"pattern":"ts ping","description":"回复ts pong","scope":"all"}],
+ "limits":{"concurrency":1,"queue":8,"hookTimeoutMs":5000,"lifecycleTimeoutMs":10000,"maxTasks":2}
+}

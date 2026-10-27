@@ -1,0 +1,138 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：password-login.ts",
+    "title": "源码补充：account-verifier",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/account/ma-verifier/api/createEmailCaptchaByActionTicket": {
+      "post": {
+        "operationId": "createEmailCaptchaByActionTicket",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "action_ticket": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "action_type": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "action_type",
+                  "action_ticket"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "显式发送邮箱验证码，不自动重试",
+        "x-candidate-unverified": false
+      }
+    },
+    "/account/ma-verifier/api/getActionTicketInfo": {
+      "post": {
+        "operationId": "getActionTicketInfo",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "action_ticket": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "action_type": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "action_type",
+                  "action_ticket"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "查询账号安全验证票据要求",
+        "x-candidate-unverified": false
+      }
+    },
+    "/account/ma-verifier/api/verifyActionTicketPartly": {
+      "post": {
+        "operationId": "verifyActionTicketPartly",
+        "parameters": null,
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "action_ticket": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "action_type": {
+                    "description": "源实现同名字段；账号、票据及验证码仅用于本次请求，不写入日志。",
+                    "type": "string"
+                  },
+                  "email_captcha": {
+                    "description": "安全验证内容，必须与当前票据所属账号一致，不记录日志。",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "安全验证内容，必须与当前票据所属账号一致，不记录日志。",
+                    "type": "string"
+                  },
+                  "verify_method": {
+                    "description": "上游安全验证方法标识，不枚举或绕过验证组合。",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "action_type",
+                  "action_ticket"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "提交明确选择的安全验证材料",
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sg-public-api.hoyoverse.com"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "info": {
+    "description": "来自旧项目已存在的调用逻辑；本轮仅验证封装契约，不宣称真实账号验收。依据：genshin-commands.ts",
+    "title": "源码补充：star-rail-official-gacha",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/common/badge/v1/login/info": {
+      "get": {
+        "operationId": "getOfficialGachaSession",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "game_biz",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "lang",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "ts",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "读取官方跃迁会话并保留Set-Cookie",
+        "x-candidate-unverified": false
+      }
+    },
+    "/event/rpg_gacha_record/five_star_list": {
+      "get": {
+        "operationId": "getOfficialFiveStarList",
+        "parameters": [
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "game_biz",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "badge_region",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "badge_uid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "region",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "uid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "gacha_type",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "max_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "上游同名参数，保留原始字符串格式。",
+            "in": "query",
+            "name": "version_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上游JSON响应，retcode为0表示成功"
+          }
+        },
+        "summary": "读取官方星铁五星跃迁分页",
+        "x-candidate-unverified": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sg-act-public-api.hoyolab.com"
+    }
+  ]
+}
