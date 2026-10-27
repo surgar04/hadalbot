@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="docs/assets/hadalbot.svg" width="88" height="88" alt="HadalBot 标志" />
-
-# HadalBot
+<h1>
+  <img src="docs/assets/hadalbot-wordmark.png" width="520" alt="HadalBot" />
+</h1>
 
 **以 Go 为核心的模块化机器人框架**
 
